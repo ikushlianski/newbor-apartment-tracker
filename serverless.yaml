@@ -1,0 +1,52 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: apartment-notifier
+frameworkVersion: '2'
+useDotenv: true
+
+package:
+  excludeDevDependencies: true
+  include:
+    - build/**
+  exclude:
+    - node_modules/**
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: eu-north-1
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "sns:*"
+      Resource: "arn:aws:sns:eu-north-1:409948879486:newBorNew4RoomAparts"
+
+  environment:
+    PAGE_ROOMS_4: ${env:PAGE_ROOMS_4}
+
+  ecr:
+    # In this section you can define images that will be built locally and uploaded to ECR
+    images:
+      newBorImage:
+        path: ./
+
+functions:
+  fourRoomApartments:
+    image: 409948879486.dkr.ecr.eu-north-1.amazonaws.com/newbor_tracker@sha256:fdb465edf2868a480f6da955da3970640f593acb72df398d7882b93571dd5acc
+    timeout: 20
+    events:
+      - schedule: cron(0 8,13 * * ? *) # 11 and 16 Minsk time

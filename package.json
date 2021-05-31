@@ -1,0 +1,31 @@
+{
+  "name": "newbor-apartment-tracker",
+  "description": "Playing with Puppeteer and AWS Container Images to track apartments of certain configuration",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "main": "src/index.js",
+  "author": "Ilya Kushlianski <kushliansky@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start:dev": "sls invoke local -f fourRoomApartments",
+    "deploy": "sls deploy",
+    "build": "NODE_ENV=development webpack"
+  },
+  "dependencies": {
+    "puppeteer": "^9.1.1",
+    "serverless": "^2.43.1"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.918.0",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.27.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.0",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0"
+  }
+}
